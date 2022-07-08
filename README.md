@@ -1,6 +1,42 @@
 # hamurabi
 an ancient (in more ways than one) computer game (text)
 
+(semi-adapted for python3)
+
+## Python Coders 
+
+use ONE big class called hamurabi, add all your methods to it.
+You will not need Maven at all, it'll just be one `hamurabi.py` file.
+
+start with `hamurabi.py` having 
+
+```python
+
+class Hamurabi(object):
+    def play_game(self):
+        print "Let's play!"
+    ## lots more methods here...
+
+if __name__ == '__main__':
+    Hamurabi().play_game()
+    
+```
+
+### Python note on `random`
+
+```python
+import random
+
+print(random.randint(0, 5))
+#This will output either 1, 2, 3, 4 or 5.
+print(random.random()) # will print a number from 0.0 to less than 1.0
+# so if you need a number between 0.0 and 100.0
+print(random.random() * 100.0)
+```
+
+
+(this is the main Readme for the java version).
+
 ## General idea of the lab
 
 *Hammurabi* is a very old computer game (like about as old as Kris). Your job is to bring it into the 21st century by writing it in Java.
