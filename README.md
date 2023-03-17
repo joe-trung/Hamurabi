@@ -6,7 +6,8 @@ an ancient (in more ways than one) computer game (text)
 ## Python Coders 
 
 use ONE big class called hamurabi, add all your methods to it.
-You will not need Maven at all, it'll just be one `hamurabi.py` file.
+It'll just be one `hamurabi.py` file.
+But make sure you have a `test_hamurabi.py` which tests all your non-random methods.
 
 start with `hamurabi.py` having 
 
