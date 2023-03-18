@@ -1,7 +1,6 @@
 import math
 import random
 
-
 name = input("Welcome to Hammurabi! Please enter your name: \n").upper()
 population = 100
 land = 1000
@@ -35,8 +34,11 @@ def play():
         immigration()
         harvest()
         grain_eaten_by_rat()
-
+        if population < 0 or bushel < 0 or land < 0:
+            print(f"You drove your Kingdom under ground on year #{ruling_year}. GAME OVER")
+            break
         ruling_year += 1
+    print_final()
 
 
 def play_again():
@@ -66,13 +68,17 @@ def buy_land():
 def feed_people():
     global bushel, starved_death, population
     bushels_fed = int(input(f"\n----\n You currently have {population} people."
-                            f"And it needs 20 bushels to feed 1 person.\n"
+                            f"And it needs {population*20} bushels to feed all your.\n"
                             f"How many bushels do you want to feed your people?\n----"))
-    bushel -= bushels_fed
-    print(f"Your total bushel is now {bushel} bushels\n")
-    total_fed = bushels_fed//20
-    print(f"These bushed are enough for {total_fed} people\n")
-    starved_death = population - total_fed
+    if bushel < bushels_fed:
+        print("You don't have that much bushels")
+        feed_people()
+    else:
+        bushel -= bushels_fed
+        print(f"Your total bushel is now {bushel} bushels\n")
+        total_fed = bushels_fed // 20
+        print(f"These bushed are enough for {total_fed} people\n")
+        starved_death = population - total_fed
 
 
 def uprising():
@@ -86,7 +92,7 @@ def starvation_death():
     global starved_death, population
     if starved_death > 0:
         print("You did not feed all your people \n"
-              "Total starvation death count was" + str(starved_death) + "\n")
+              f"Total starvation death count was {starved_death}\n")
     else:
         print("You were a good ruler. All of your people \n"
               "were fed. You probably wasted some food\n")
@@ -117,11 +123,11 @@ def is_plague():
 def plague_death():
     global starved_death, population, death_by_plague
     if is_plague():
-        death_by_plague = random.randint(0, 100)
-        print(f"There is a plague during the year, and it killed {starved_death} people\n")
+        death_by_plague = population//2
+        print(f"There is a plague during the year, and it killed {death_by_plague} people\n")
     else:
         print("There was no plague. Lucky you!!\n")
-    population -= death_by_plague
+    population = death_by_plague
     print(f"Current population is {population}\n")
 
 
@@ -132,8 +138,11 @@ def immigration():
         immigrant = 0
     else:
         immigrant = math.trunc((20 * land + bushel) / (100 * population) + 1)
-        print(f"There are {immigrant} people coming to your Kingdom\n")
-        population += immigrant
+        if immigrant <0:
+            immigrant = 0
+        else:
+            print(f"There are {immigrant} people coming to your Kingdom\n")
+            population += immigrant
     print(f"Current population is {population}\n")
 
 
@@ -155,7 +164,7 @@ def grain_eaten_by_rat():
         rat_destruction = 0
     else:
         random_destruction = random.uniform(0.10, 0.30)
-        rat_destruction = total_harvest * random_destruction
+        rat_destruction = round(total_harvest * random_destruction)
         print(f"The damm rats destroyed {rat_destruction} bushel of your harvest")
     bushel -= rat_destruction
     print(f"Your total bushel is {bushel}\n")
@@ -171,18 +180,20 @@ def print_summary():
     print(f"\n\nKING {name}, I BEG TO REPORT TO YOU: \n\n"
           f"In year {ruling_year} under your ruling, \n"
           f"1. There were {starved_death} people was starved to death. \n"
-          f"2. THere were {immigrant} moved to your Kingdom.\n"
+          f"2. There were {immigrant} moved to your Kingdom.\n"
           f"3. The Kingdom population now is {population}.\n"
           f"4. You own {land} acres of land.\n"
           f"5. We harvested {total_harvest} bushels for you.\n"
           f"6. Productivity was {productivity} per acre.\n"
-          f"7. The damm rats ate {rat_destruction} of your bushels.\n"
-          f"8. You now have {bushel} bushels in stock.\n"
-          f"9. Land is trading at {land_value} per acre")
+          f"7. {death_by_plague} people were killed by plague\n"
+          f"8. The damm rats ate {rat_destruction} of your bushels.\n"
+          f"9. You now have {bushel} bushels in stock.\n"
+          f"10. Land is trading at {land_value} per acre")
 
 
 def print_final():
-    pass
+    print("\n----\n----\nCONGRATULATION. YOUR SURVIVE YOUR 10 YEARS\n----\n----\n")
+    print_summary()
 
 
 play()
