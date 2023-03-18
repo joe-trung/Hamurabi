@@ -122,12 +122,13 @@ def is_plague():
 
 def plague_death():
     global starved_death, population, death_by_plague
+    death_by_plague = 0
     if is_plague():
         death_by_plague = population//2
         print(f"There is a plague during the year, and it killed {death_by_plague} people\n")
+        population = death_by_plague
     else:
         print("There was no plague. Lucky you!!\n")
-    population = death_by_plague
     print(f"Current population is {population}\n")
 
 
@@ -158,10 +159,10 @@ def harvest():
 
 def grain_eaten_by_rat():
     global rat_destruction, total_harvest, bushel
+    rat_destruction = 0
     i = random.randint(1, 10)
     if i <= 6:
         print("There was no Rat problem last year\n----")
-        rat_destruction = 0
     else:
         random_destruction = random.uniform(0.10, 0.30)
         rat_destruction = round(total_harvest * random_destruction)

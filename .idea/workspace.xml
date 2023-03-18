@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="270810d9-986c-4edd-ac29-d84cfe0e1f2f" name="Changes" comment="Trung's part done">
+    <list default="true" id="270810d9-986c-4edd-ac29-d84cfe0e1f2f" name="Changes" comment="DONE After Trung Test.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/matuszek/hummurabi.py" beforeDir="false" afterPath="$PROJECT_DIR$/docs/matuszek/hummurabi.py" afterDir="false" />
     </list>
@@ -88,7 +88,21 @@
       <option name="project" value="LOCAL" />
       <updated>1679106964564</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Fixing up">
+      <created>1679141829783</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1679141829783</updated>
+    </task>
+    <task id="LOCAL-00008" summary="DONE After Trung Test.">
+      <created>1679145094765</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1679145094765</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -96,6 +110,8 @@
     <MESSAGE value="Add empty functions" />
     <MESSAGE value="finishing frame" />
     <MESSAGE value="Trung's part done" />
-    <option name="LAST_COMMIT_MESSAGE" value="Trung's part done" />
+    <MESSAGE value="Fixing up" />
+    <MESSAGE value="DONE After Trung Test." />
+    <option name="LAST_COMMIT_MESSAGE" value="DONE After Trung Test." />
   </component>
 </project>
