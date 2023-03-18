@@ -22,7 +22,7 @@ game_over = False
 def play():
     global ruling_year, game_over
     for i in range(10):
-        print(f"\n------------\nWelcome to your year #{ruling_year}\n")
+        print(f"\n------------\nYEAR #{ruling_year} REPORT\n")
         print_summary()
         new_cost_of_land()
         sell_land()
@@ -39,7 +39,7 @@ def play():
             harvest()
             grain_eaten_by_rat()
             if population < 0 or bushel < 0 or land < 0:
-                print(f"You drove your Kingdom under ground on year #{ruling_year}. GAME OVER")
+                print(f"\033[91mYou drove your Kingdom under ground on year #{ruling_year}. GAME OVER\033[m")
                 game_over = True
                 break
             ruling_year += 1
@@ -62,7 +62,7 @@ def sell_land():
         land_sold = 0
     land_sold = int(land_sold)
     if land < land_sold:
-        print("You don't have that much land to sell\n")
+        print(f"You don't have that much land to sell, max {land}\n")
         sell_land()
     else:
         land -= land_sold
@@ -79,7 +79,8 @@ def buy_land():
         land_purchased = 0
     land_purchased = int(land_purchased)
     if bushel < land_purchased * land_value:
-        print("You don't have enough bushels to buy that much land\n")
+        print(f"You don't have enough bushels to buy that much land. \n"
+              f"Current bushel is {bushel}, max purchase is {bushel*land_value}\n")
         buy_land()
     else:
         land += land_purchased
@@ -98,7 +99,7 @@ def feed_people():
         bushels_fed = population * 20
     bushels_fed = int(bushels_fed)
     if bushel < bushels_fed:
-        print("You don't have that much bushels\n")
+        print(f"You don't have that much bushels. Only {bushel} available\n")
         feed_people()
     else:
         bushel -= bushels_fed
@@ -113,7 +114,7 @@ def feed_people():
 def uprising():
     global starved_death, population, game_over
     if (starved_death / population) > 0.45:
-        print("There was an uprising. You got kicked out of office. GAME OVER\n")
+        print(f"\033[91mThere was an uprising. You got kicked out of office. GAME OVER\033[m\n")
         game_over = True
 
 
@@ -123,8 +124,8 @@ def starvation_death():
         print("You did not feed all your people \n"
               f"Total starvation death count was {starved_death}\n")
     else:
-        print("You were a good ruler. All of your people \n"
-              "were fed.\n")
+        print(f"\033[94mYou were a good ruler. All of your people \n"
+              "were fed.\033[m\n")
         starved_death = 0
     population -= starved_death
     print(f"Population now is {population}")
@@ -133,19 +134,25 @@ def starvation_death():
 def acre_to_plant():
     global land_utilization, bushel, land, population
     land_utilization = input("\n----\nHow many acres do you want to plant with grain?\n"
-                             "Or enter to maximize you land use\n----")
+                             "Or enter to maximize human labor\n----")
     if not land_utilization:
         land_utilization = population * 10
     land_utilization = int(land_utilization)
     if land_utilization > land:
-        print("You don't have that much land.")
+        print(f"You don't have that much land. Only {land} available\n")
+        acre_to_plant()
+    elif bushel < land_utilization * 2:
+        print(f"You don't have enough bushel to start cultivation. Only {bushel} available.\n")
         acre_to_plant()
     elif population * 10 < land_utilization:
         print("You don't have enough people to cultivate that much land\n")
         acre_to_plant()
     else:
-        print(f"These land will make total of {land_utilization * productivity} bushels\n"
-              f"by year end")
+        bushel -= land_utilization * 2
+        print(f"This crop will cost you {land_utilization * 2} bushels\n"
+              f"Will make total of {land_utilization * productivity} bushels\n"
+              f"by year end\n"
+              f"Your current bushel is {bushel}")
 
 
 def is_plague():
@@ -164,14 +171,14 @@ def plague_death():
         print(f"There is a plague during the year, and it killed {death_by_plague} people\n")
         population = death_by_plague
     else:
-        print("There was no plague. Lucky you!!\n")
+        print("\033[94mThere was no plague. Lucky you!!\033[m\n")
     print(f"Current population is {population}\n")
 
 
 def immigration():
     global immigrant, population, starved_death
     if starved_death > 0:
-        print("There was no immigration. No one wanted to die with you\n----")
+        print(f"\033[91mThere was no immigration. No one wanted to die with you\033[m\n----")
         immigrant = 0
     else:
         immigrant = math.trunc((20 * land + bushel) / (100 * population) + 1)
@@ -214,22 +221,22 @@ def new_cost_of_land():
 
 
 def print_summary():
-    print(f"\n\nKing {name}, KING of the Kings, I beg to report to you honor: \n\n"
+    print(f"\n\n\033[93mKing {name}, KING of the Kings, I beg to report to you honor: \033[m\n\n"
           f"In year {ruling_year} under your ruling, \n"
-          f"1. There were {starved_death} people was starved to death. \n"
+          f"1. \033[94mThere were {starved_death} people was starved to death. \033[m\n"
           f"2. There were {immigrant} moved to your Kingdom.\n"
-          f"3. The Kingdom population now is {population}.\n"
+          f"3. \033[94mThe Kingdom population now is {population}.\033[m\n"
           f"4. You own {land} acres of land.\n"
-          f"5. Productivity this year was {productivity} per acre.\n"
+          f"5. \033[94mProductivity this year was {productivity} per acre.\033[m\n"
           f"6. We harvested {total_harvest} bushels for you.\n"
-          f"7. {death_by_plague} people were killed by plague\n"
+          f"7. \033[94m{death_by_plague} people were killed by plague\033[m\n"
           f"8. The damm rats ate {rat_destruction} of your bushels.\n"
-          f"9. You now have {bushel} bushels in stock.\n"
+          f"9. \033[94mYou now have {bushel} bushels in stock.\033[m\n"
           f"10. Land is trading at {land_value} per acre")
 
 
 def print_final():
-    print("\033[44;93m\n----\n----\n!!! CONGRATULATION !!!\nYOU DID WELL IN YOUR 10 YEARS\n----\n----\n\033[m")
+    print("\033[44;93m\n----\n----\n!!! CONGRATULATION !!!\nYOU SURVIVED YOUR 10 YEARS\n----\n----\n\033[m")
     print_summary()
 
 
