@@ -1,16 +1,27 @@
 import math
 import random
 
+name = input("Welcome to Hammurabi! Please enter your name: \n").upper()
+population = 100
+land = 1000
+bushel = 2800
+immigrant = 5
+land_value = 19
+total_harvest = 3000
+productivity = 3
+max_person_capability = 10
+starved_to_death = 0
+ruling_year = 0
+rat_destruction = 200
+land_utilization = 1000
+
 
 def play():
-    pass
+    print_summary()
 
 
 def play_again():
     pass
-
-
-current_kingdon_status = dict()
 
 
 def sell_land():
@@ -25,7 +36,7 @@ def buy_land():
 
 def feed_people():
     return int(input("How many bushel you want to feed your people? \n"
-                     "(20 to feed 1 person per year)"))
+                     "(20 bushels to feed 1 person per year)"))
 
 
 def acre_to_plant():
@@ -33,12 +44,16 @@ def acre_to_plant():
 
 
 def is_plague():
-    return bool(random.getrandbits(1))
+    random_num = random.randint(1, 100)
+    if random_num <= 15:
+        return True
+    else:
+        return False
 
 
 def plague_death():
     if is_plague():
-        death = random.randint(1, 10)
+        death = random.randint(0, 100)
         print("There is a plague during the year, and it killed " + str(death))
         return death
 
@@ -69,11 +84,10 @@ def immigration():
         return math.trunc((20 * land + bushel) / (100 * population) + 1)
 
 
-
 def harvest():
-    productivity = random.randint(1, 6)
-    print(f"This year, one acre of land produce {productivity} bushels")
-    return planting_land * productivity
+    x = random.randint(1, 6)
+    print(f"This year, one acre of land produce {x} bushels")
+    return land_utilization * x
 
 
 def grain_eaten_by_rat():
@@ -91,8 +105,20 @@ def new_cost_of_land():
 
 
 def print_summary():
-    pass
+    print(f"\n\nKING {name}, I BEG TO REPORT TO YOU: \n\n"
+          f"In year {ruling_year} under your ruling, \n"
+          f"1. There were{starved_to_death} people was starved to death. \n"
+          f"2. THere were {immigrant} moved to your Kingdom.\n"
+          f"3. The Kingdom population now is {population}.\n"
+          f"4. You own {land} acres of land.\n"
+          f"5. We harvested {total_harvest} bushels for you.\n"
+          f"6. Productivity was {productivity} per acre.\n"
+          f"7. The damm rats ate {rat_destruction} of your bushels.\n"
+          f"8. You now have {bushel} bushels in stock.\n"
+          f"9. Land is trading at {land_value} per acre")
 
 
 def print_final():
-    pass
+
+
+play()
