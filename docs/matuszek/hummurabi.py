@@ -145,7 +145,7 @@ def acre_to_plant():
         print(f"You don't have enough bushel to start cultivation. Only {bushel} available.\n")
         acre_to_plant()
     elif population * 10 < land_utilization:
-        print("You don't have enough people to cultivate that much land\n")
+        print(f"You don't have enough people to cultivate that much land. Max {population*10}\n")
         acre_to_plant()
     else:
         bushel -= land_utilization * 2
