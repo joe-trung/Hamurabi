@@ -25,7 +25,6 @@ def play():
         print_summary()
         sell_land()
         buy_land()
-        feed_people()
         acre_to_plant()
         plague_death()
         starvation_death()
