@@ -11,7 +11,7 @@ total_harvest = 3000
 productivity = 3
 max_person_capability = 10
 starved_death = 0
-ruling_year = 1
+ruling_year = 0
 rat_destruction = 200
 land_utilization = 1000
 dead_counter = 0
@@ -47,8 +47,11 @@ def play_again():
 
 def sell_land():
     global land, bushel
-    land_sold = int(input("\n----\nHow many acres of land do you want to sell? \n"
-                          "Enter a number, or 0 if do not want to sell\n----"))
+    land_sold = input("\n----\nHow many acres of land do you want to sell? \n"
+                      "Enter a number, or enter if do not want to sell\n----")
+    if not land_sold:
+        land_sold = 0
+    land_sold = int(land_sold)
     land -= land_sold
     print(f"Your total land is {land} acres\n")
     bushel += land_sold * land_value
@@ -57,8 +60,11 @@ def sell_land():
 
 def buy_land():
     global land, bushel
-    land_purchased = int(input("\n----\nHow many acres of land do you want to buy? \n"
-                               "Enter a positive number, or 0 if do not want to buy\n----"))
+    land_purchased = input("\n----\nHow many acres of land do you want to buy? \n"
+                           "Enter a positive number, or enter if do not want to buy\n----")
+    if not land_purchased:
+        land_purchased = 0
+    land_purchased = int(land_purchased)
     land += land_purchased
     print(f"Your total land is {land} acres\n")
     bushel -= land_purchased * land_value
@@ -67,9 +73,13 @@ def buy_land():
 
 def feed_people():
     global bushel, starved_death, population
-    bushels_fed = int(input(f"\n----\n You currently have {population} people."
-                            f"And it needs {population*20} bushels to feed all your.\n"
-                            f"How many bushels do you want to feed your people?\n----"))
+    bushels_fed = input(f"\n----\n You currently have {population} people."
+                        f"And it needs {population * 20} bushels to feed all your.\n"
+                        f"How many bushels do you want to feed your people?\n"
+                        f"Provide a number or press enter to feed all you people\n----")
+    if not bushels_fed:
+        bushels_fed = population*20
+    bushels_fed = int(bushels_fed)
     if bushel < bushels_fed:
         print("You don't have that much bushels")
         feed_people()
@@ -102,8 +112,12 @@ def starvation_death():
 
 
 def acre_to_plant():
-    global land_utilization, bushel, land
-    land_utilization = int(input("\n----\nHow many acres do you want to plant with grain? \n----"))
+    global land_utilization, bushel, land, population
+    land_utilization = input("\n----\nHow many acres do you want to plant with grain?\n"
+                             "Or enter to maximize you land use\n----")
+    if not land_utilization:
+        land_utilization = population * 10
+    land_utilization = int(land_utilization)
     if land_utilization > land:
         print("You don't have that much land.")
         acre_to_plant()
@@ -124,7 +138,7 @@ def plague_death():
     global starved_death, population, death_by_plague
     death_by_plague = 0
     if is_plague():
-        death_by_plague = population//2
+        death_by_plague = population // 2
         print(f"There is a plague during the year, and it killed {death_by_plague} people\n")
         population = death_by_plague
     else:
@@ -139,7 +153,7 @@ def immigration():
         immigrant = 0
     else:
         immigrant = math.trunc((20 * land + bushel) / (100 * population) + 1)
-        if immigrant <0:
+        if immigrant < 0:
             immigrant = 0
         else:
             print(f"There are {immigrant} people coming to your Kingdom\n")
