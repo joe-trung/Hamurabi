@@ -39,10 +39,13 @@ def play():
             break
         ruling_year += 1
     print_final()
+    play_again()
 
 
 def play_again():
-    pass
+    if input("\n-----\n-----\nYou are elected for another term.\n"
+             "Do you want to take the office again? (y or n)") == "y":
+        play()
 
 
 def sell_land():
@@ -78,7 +81,7 @@ def feed_people():
                         f"How many bushels do you want to feed your people?\n"
                         f"Provide a number or press enter to feed all you people\n----")
     if not bushels_fed:
-        bushels_fed = population*20
+        bushels_fed = population * 20
     bushels_fed = int(bushels_fed)
     if bushel < bushels_fed:
         print("You don't have that much bushels")
